@@ -1,0 +1,244 @@
+/* Fondo retro mágico difuminado */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #FFF7AD, #FFB3AE, #FF49C1, #6A1452, #44113E);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+/* Título */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #FFF7AD;
+  text-shadow: 0 0 15px rgba(255, 250, 200, 0.8);
+}
+
+p {
+  margin-bottom: 30px;
+  font-size: 1.1em;
+  color: #ffe6f5;
+}
+
+/* Tarjetas estilo cristal */
+.card {
+  position: relative;
+  width: 300px;
+  height: 160px;
+  margin: 20px auto;
+  border-radius: 20px;
+  padding: 20px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Fondo imágenes */
+.card.crimen {
+  background-image: url("images/crimen.png");
+}
+
+.card.pistas {
+  background-image: url("images/pistas.png");
+}
+
+.card.personajes {
+  background-image: url("images/personajes.png");
+}
+
+/* Oscurecer un poco el fondo para que el texto se lea */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4); /* 🔴 este es el cuadro oscuro */
+  border-radius: 20px;
+  z-index: 0;
+}
+
+.card h3, .card .btn {
+  position: relative;
+  z-index: 1;
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background: #FF49C1;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #FFB3AE;
+  transform: scale(1.05);
+}
+
+#encuesta-mensaje {
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.opcion {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff4b7d, #ff7eb9);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.opcion:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff2674, #ff92c2);
+}
+
+.btn-votar {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #ff7eb9, #ff4b7d);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn-votar:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff92c2, #ff2674);
+}
+.poll-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: transparent !important; /* fondo transparente */
+  box-shadow: none; /* quita la sombra negra */
+  text-align: center;
+}
+.card.poll-card {
+  background: transparent !important;
+  box-shadow: none !important;
+
+}
+.card.poll-card {
+  background: transparent !important;   /* elimina fondo negro */
+}
+
+.card.poll-card::before {
+  display: none !important;  /* elimina overlay oscuro */
+}
+.login-card {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.login-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  margin: 100px auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column; /* 🔥 fuerza que se acomoden en columna */
+  gap: 15px; /* espacio entre los elementos */
+}
+
+.login-card input {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  font-size: 16px;
+}
+
+.login-card .btn {
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(45deg, #ff0080, #ff8c00);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.login-card .btn:hover {
+  transform: scale(1.05);
+}
+.login-error {
+  display: none;
+  color: #fff;
+  background: rgba(255, 0, 0, 0.12);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* animación shake pequeña */
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+.login-error.shake {
+  animation: shake 0.45s ease;
+}

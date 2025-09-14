@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELUM - Inicio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>INVESTIGACIÓN</h1>
+    <p>Elige por dónde comenzar tu investigación...</p>
+
+    <div class="card crimen">
+      <h3>Crimen en detalle</h3>
+      <a href="crimen.html" class="btn">¡Vamos!</a>
+    </div>
+
+    <div class="card pistas">
+      <h3>Pistas</h3>
+      <a href="pistas.html" class="btn">Descubrir</a>
+    </div>
+
+    <div class="card personajes">
+      <h3>Personajes</h3>
+      <a href="personajes.html" class="btn">Conócelos</a>
+    </div>
+
+<!-- ==== ENCUESTA ==== -->
+<div class="card poll-card">
+  <h3>Encuesta</h3>
+  <p id="encuesta-mensaje">¿Quién crees que es el culpable?</p>
+
+  <div id="opciones-encuesta">
+    <button class="opcion" data-valor="Sofia">Sofía</button>
+    <button class="opcion" data-valor="Mateo">Mateo</button>
+    <button class="opcion" data-valor="Valeria">Valeria</button>
+    <button class="opcion" data-valor="Andres">Andrés</button>
+    <button class="opcion" data-valor="Julián">Julián</button>
+    <button class="opcion" data-valor="Lucía">Lucía</button>
+    <button class="opcion" data-valor="Clara">Clara</button>
+    <button class="opcion" data-valor="Diego">Diego</button>
+
+    <div style="height:10px;"></div>
+    <button class="btn-votar" id="btnVotar">Votar</button>
+  </div>
+</div>
