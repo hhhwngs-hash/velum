@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crimen en detalle</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .crime-card {
+      position: relative;
+      background: url('images/crimen.png') no-repeat center center/cover;
+      color: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 90%;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .crime-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); /* oscurece la imagen */
+      backdrop-filter: blur(2px);
+    }
+
+    .crime-card p {
+      position: relative;
+      font-size: 16px;
+      line-height: 1.5;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>El Crimen</h1>
+
+    <div class="crime-card">
+      <p>
+        Una noche después del partido de fútbol en la High School Riverside, 
+        el cuerpo de <strong>Valeria</strong> fue hallado en el pasillo 4 frente a los casilleros, 
+        con un cuaderno destrozado a su lado, una zapatilla manchada de pintura rosa 
+        y un mensaje en la pared que decía <em>“La verdad debía callarse”</em>. 
+        La puerta trasera estaba abierta, la alarma desactivada y su celular roto contra la pared, 
+        dejando claro que alguien quería silenciarla.
+      </p>
+    </div>
+
+    <a href="inicio.html" class="btn">⬅ Volver</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+
+/* Global & animated pastel gradient background */
+:root{
+  --accent1: #7fd3ff; /* blue */
+  --accent2: #ff9ad1; /* pink */
+  --accent3: #cda1ff; /* lila */
+  --accent4: #fff59a; /* yellow */
+  --accent5: #b6f7c1; /* green */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: Poppins, system-ui, -apple-system, Arial;}
+body{
+  background: linear-gradient(120deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4), var(--accent5));
+  background-size: 100% 1000%;
+  animation: bgMove 18s linear infinite;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color:#fff;
+  padding:20px;
+}
+
+/* animate gradient */
+@keyframes bgMove{
+  0%{background-position:0% 0%}
+  50%{background-position:100% 100%}
+  100%{background-position:0% 0%}
+}
+
+/* Container used by pages */
+.container{max-width:1000px;margin:0 auto;padding:20px;}
+
+/* Generic card (glass) */
+.card, .login-card, .poll-card{
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius:18px;
+  padding:18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  color:#fff;
+}
+
+/* Title styles */
+h1.titulo, .login-card h1{ font-size:28px; margin:0 0 6px; color: #fff;}
+p.subtitulo{ margin:6px 0 18px; color:rgba(255,255,255,0.9)}
+
+/* Buttons */
+.btn, .btn-votar, .card .btn {
+  display:inline-block;
+  background: linear-gradient(135deg, rgba(255,77,140,0.95), rgba(255,179,170,0.95));
+  border:none;
+  padding:10px 16px;
+  border-radius:14px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transition: transform .12s ease;
+}
+.btn:hover{ transform: translateY(-3px); }
+
+/* Login layout */
+.login-wrapper{ display:flex; align-items:center; justify-content:center; min-height:calc(100vh - 40px); }
+.login-card{ width:clamp(300px,86%,420px); margin:auto; text-align:center; padding:28px; }
+
+.login-card input[type="text"], .login-card input[type="password"]{
+  width:100%; padding:12px 12px; margin:8px 0; border-radius:10px; border:none;
+}
+
+/* error box */
+.login-error{
+  display:none; margin-top:10px; padding:10px 12px; border-radius:10px;
+  background: linear-gradient(180deg, rgba(255,77,140,0.18), rgba(255,77,140,0.12));
+  border:1px solid rgba(255,77,140,0.28); color:#fff; font-weight:700;
+}
+.login-error.shake{ animation: shake .45s ease; }
+@keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-4px)}40%,60%{transform:translateX(4px)}}
+
+/* Cards grid on inicio */
+.cards-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:18px; align-items:start; }
+
+.card h2{ margin:0 0 8px; color:#fff; }
+.card p{ color: rgba(255,255,255,0.9)}
+
+/* poll card style */
+.poll-card{ margin-top:22px; padding:18px; }
+.opcion{ display:block; width:100%; padding:12px; margin:8px 0; border-radius:12px; border:none; background: linear-gradient(135deg,#ff9ad1,#cda1ff); color:#fff; font-weight:700; cursor:pointer; }
+.opcion.seleccionada{ box-shadow:0 10px 20px rgba(0,0,0,0.12); transform:scale(1.02); }
+.btn-votar{ width:100%; padding:12px; border-radius:12px; border:none; margin-top:10px; background: linear-gradient(135deg,#7fd3ff,#ff9ad1); color:#fff; font-weight:800; cursor:pointer; }
+
+/* results list */
+#lista-resultados{ list-style:none; padding:0; margin:12px 0 0 0; text-align:left; }
+#lista-resultados li{ padding:8px 10px; border-radius:8px; background: rgba(255,255,255,0.04); margin-bottom:8px; }
+
+/* responsive */
+@media (max-width:480px){
+  body{ padding:12px; }
+  .login-card{ padding:20px; }
+}

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>VELUM - Inicio</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+  <div class="container">
+    <h1 class="titulo">INVESTIGACIÓN</h1>
+    <p class="subtitulo">Elige por dónde comenzar tu investigación...</p>
+
+    <div id="welcome" class="card" style="margin-bottom:16px;">
+      <h2 id="saludo">Bienvenido</h2>
+      <p id="intro">Comienza tu investigación seleccionando una sección.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card crimen">
+        <h2>Crimen en detalle</h2>
+        <p>Lee la escena del crimen y los detalles recolectados.</p>
+        <a class="btn" href="crimen.html">¡Vamos!</a>
+      </div>
+      <div class="card pistas">
+        <h2>Pistas</h2>
+        <p>Observa las pruebas encontradas y analízalas.</p>
+        <a class="btn" href="pistas.html">Descubrir</a>
+      </div>
+      <div class="card personajes">
+        <h2>Personajes</h2>
+        <p>Conoce a los sospechosos y sus motivos.</p>
+        <a class="btn" href="personajes.html">Conócelos</a>
+      </div>
+    </div>
+
+    <!-- encuesta al final -->
+    <div class="poll-card card" id="pollCard">
+      <h3>Encuesta: ¿Quién crees que es el culpable?</h3>
+      <p id="poll-note">Vota de forma anónima. Tus votos ayudan a la comunidad.</p>
+
+      <div id="opciones-encuesta">
+        <button class="opcion" data-valor="Camila">Camila</button>
+        <button class="opcion" data-valor="Diego">Diego</button>
+        <button class="opcion" data-valor="Lucía">Lucía</button>
+        <button class="opcion" data-valor="Mateo">Mateo</button>
+        <button class="opcion" data-valor="Sofía">Sofía</button>
+        <button class="opcion" data-valor="Andrés">Andrés</button>
+        <button class="opcion" data-valor="Clara">Clara</button>
+        <button class="opcion" data-valor="Julián">Julián</button>
+
+        <div style="height:10px;"></div>
+        <button id="btnVotar" class="btn-votar">Votar</button>
+      </div>
+
+      <div id="resultados" style="display:none;">
+        <h4>Resultados</h4>
+        <ul id="lista-resultados"></ul>
+      </div>
+    </div>
+
+  </div>
+
+<script src="encuesta.js"></script>
+<script>
+// show welcome name from sessionStorage
+document.addEventListener('DOMContentLoaded', ()=>{
+  const name = sessionStorage.getItem('velum_user') || 'Investigador';
+  document.getElementById('saludo').textContent = 'Bienvenido, ' + name;
+});
+</script>
+</body>
+</html>

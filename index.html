@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VELUM - Acceso</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-card" role="main">
+      <h1>VELUM</h1>
+      <p>El culpable está entre nosotros...</p>
+
+      <form id="loginForm" novalidate autocomplete="off">
+        <input id="usuario" type="text" placeholder="Nombre de usuario" required />
+        <input id="codigo" type="password" placeholder="Código de acceso" required />
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+
+      <div id="error" class="login-error" role="alert" aria-live="assertive"></div>
+      <div id="info" class="info-small" aria-live="polite"></div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const SECRET_CODE = "200028";
+  const MAX_ATTEMPTS = 5;
+  const LOCK_MINUTES = 5;
+  const KEY_ATTEMPTS = "velum_attempts_left";
+  const KEY_LOCKUNTIL = "velum_lock_until";
+
+  const form = document.getElementById("loginForm");
+  const inputUser = document.getElementById("usuario");
+  const inputCode = document.getElementById("codigo");
+  const errorDiv = document.getElementById("error");
+  const infoDiv = document.getElementById("info");
+  const submitBtn = form.querySelector("button[type=submit]");
+
+  function getAttemptsLeft(){
+    const v = parseInt(localStorage.getItem(KEY_ATTEMPTS), 10);
+    if (isNaN(v)) {
+      localStorage.setItem(KEY_ATTEMPTS, String(MAX_ATTEMPTS));
+      return MAX_ATTEMPTS;
+    }
+    return v;
+  }
+  function setAttemptsLeft(n){ localStorage.setItem(KEY_ATTEMPTS, String(n)); }
+  function getLockUntil(){ return parseInt(localStorage.getItem(KEY_LOCKUNTIL),10) || 0; }
+  function setLockUntil(ts){ localStorage.setItem(KEY_LOCKUNTIL, String(ts)); }
+  function clearLockAndAttempts(){ localStorage.removeItem(KEY_LOCKUNTIL); localStorage.removeItem(KEY_ATTEMPTS); }
+
+  function showError(msg){
+    errorDiv.textContent = msg;
+    errorDiv.style.display = "block";
+    errorDiv.classList.remove("shake");
+    void errorDiv.offsetWidth;
+    errorDiv.classList.add("shake");
+  }
+  function hideError(){ errorDiv.style.display = "none"; errorDiv.textContent=""; }
+
+  function disableForm(state){
+    inputUser.disabled = state;
+    inputCode.disabled = state;
+    submitBtn.disabled = state;
+  }
+
+  let lockInterval = null;
+  function startLockCountdown(untilTs){
+    if(lockInterval) { clearInterval(lockInterval); lockInterval = null; }
+    disableForm(true);
+    updateLockUI();
+    lockInterval = setInterval(updateLockUI, 1000);
+
+    function updateLockUI(){
+      const now = Date.now();
+      const diff = untilTs - now;
+      if(diff <= 0){
+        clearInterval(lockInterval);
+        lockInterval = null;
+        clearLockAndAttempts();
+        setAttemptsLeft(MAX_ATTEMPTS);
+        disableForm(false);
+        hideError();
+        infoDiv.textContent = "";
+        return;
+      }
+      const secs = Math.ceil(diff/1000);
+      const m = Math.floor(secs/60);
+      const s = secs%60;
+      infoDiv.textContent = `Bloqueado por demasiados intentos. Reintenta en ${m}m ${s}s.`;
+    }
+  }
+
+  (function init(){
+    const lockUntil = getLockUntil();
+    if(lockUntil && lockUntil > Date.now()){
+      startLockCountdown(lockUntil);
+    } else {
+      const attemptsLeft = getAttemptsLeft();
+      disableForm(false);
+      infoDiv.textContent = `Te quedan ${attemptsLeft} intentos.`;
+    }
+    hideError();
+  })();
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    hideError();
+
+    const lockUntil = getLockUntil();
+    if(lockUntil && lockUntil > Date.now()){
+      startLockCountdown(lockUntil);
+      showError("Acceso bloqueado temporalmente.");
+      return;
+    }
+
+    const user = inputUser.value.trim();
+    const code = inputCode.value.trim();
+    if(!user){
+      showError("Ingresa tu nombre de usuario.");
+      return;
+    }
+    if(!code){
+      showError("Ingresa el código de acceso.");
+      return;
+    }
+
+    if(code === SECRET_CODE){
+      clearLockAndAttempts();
+      sessionStorage.setItem("velum_user", user);
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Entrando...";
+      setTimeout(()=> window.location.href = "inicio.html", 300);
+      return;
+    }
+
+    let attemptsLeft = getAttemptsLeft();
+    attemptsLeft = Math.max(0, attemptsLeft - 1);
+    setAttemptsLeft(attemptsLeft);
+
+    if(attemptsLeft <= 0){
+      const until = Date.now() + LOCK_MINUTES * 60 * 1000;
+      setLockUntil(until);
+      startLockCountdown(until);
+      showError(`Código incorrecto. Has agotado tus intentos. Bloqueado ${LOCK_MINUTES} minutos.`);
+    } else {
+      showError(`Código incorrecto. Te quedan ${attemptsLeft} intentos.`);
+      infoDiv.textContent = `Te quedan ${attemptsLeft} intentos.`;
+      inputCode.value = "";
+      inputCode.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
